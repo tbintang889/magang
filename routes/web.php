@@ -1,8 +1,10 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SchoolController;
+use App\Http\Controllers\StudentController;
+use Illuminate\Support\Facades\Route;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -33,5 +35,9 @@ Route::middleware('auth')->group(function () {
 
 require __DIR__.'/auth.php';
 
+Route::get('/students/export-excel', [StudentController::class, 'export'])->name('students.export');
 
-Route::resource('schools', SchoolController::class);
+Route::resource('schools', SchoolController::class)->middleware('auth');
+Route::resource('students', StudentController::class)->middleware('auth');
+
+//export
