@@ -24,13 +24,14 @@
                                 <tr>
                                     <th
                                         class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
+                                        Code</th>
+                                    <th
+                                        class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
                                         Name</th>
                                     <th
                                         class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
                                         Email</th>
-                                    <th
-                                        class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
-                                        Role</th>
+                                  
                                     <th
                                         class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
                                         Actions</th>
@@ -40,11 +41,12 @@
                                 @forelse ($schools as $school)
                                     <tr class="hover:bg-gray-50 transition">
                                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                                            {{ $school->code }}</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                                             {{ $school->name }}</td>
                                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                                             {{ $school->email }}</td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                                            {{ $school->role }}</td>
+                                       
                                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                                             <div class="flex items-center gap-2">
                                                 <x-action-buttons :view="route('schools.show', $school)" :edit="route('schools.edit', $school)" :delete="route('schools.destroy', $school)" />

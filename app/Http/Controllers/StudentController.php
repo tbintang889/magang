@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 use App\Exports\StudentsExport;
 use App\Http\Requests\StudentExportRequest;
 use Maatwebsite\Excel\Facades\Excel;
-
+use App\Helpers\NumberSequenceManager;
 class StudentController extends Controller
 {  
     protected $title;
@@ -17,6 +17,15 @@ class StudentController extends Controller
     public function __construct()
     {
         $this->title ="Siswa";
+    }
+    protected function generateSchoolNumber($school_code): string
+    {
+        $year = now()->year;
+      
+        $yearSuffix = substr($year, -2); // "25"
+        $contextKey = "Siswa-{$year}-{$school_code}";
+
+        return NumberSequenceManager::next("{$school_code}-{$yearSuffix}", $contextKey);
     }
     public function index()
     {
@@ -47,8 +56,11 @@ class StudentController extends Controller
 
     public function store(StoreStudentRequest $request)
     {
+        $school = School::find($request->input('school_id'));
+        $school_code = $school->code;
+        $code = $this->generateSchoolNumber($school_code);
 
-        Student::create($request->validated());
+        Student::create($request->validated() + ['student_number' => $code]);
         return redirect()->route('students.index')->with('success', 'Student created.');
     }
     //\\

@@ -12,12 +12,12 @@ class Student extends Model
 {
    use HasFactory, LogsActivity;
 
-    protected $fillable = ['name', 'email', 'school_id'];
+    protected $fillable = ['name', 'email', 'school_id', 'student_number'];
 
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults()
-            ->logOnly(['name', 'email', 'school_id'])
+            ->logOnly(['name', 'email', 'school_id', 'student_number'])
             ->useLogName('student');
     }
 

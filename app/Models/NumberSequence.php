@@ -2,12 +2,15 @@
 
 namespace App\Models;
 
+
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class School extends Model
+
+class NumberSequence extends Model
 {
-    use HasFactory;
-    protected $fillable = ['name', 'address', 'email','code'];
+   use HasFactory;
+
+    protected $fillable = ['key', 'last_number'];
 
 }

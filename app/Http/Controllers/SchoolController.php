@@ -7,6 +7,9 @@ use Illuminate\Http\Request;
 use App\Exports\SchoolsExport;
 use App\Http\Requests\StudentExportRequest;
 use Maatwebsite\Excel\Facades\Excel;    
+use App\Helpers\NumberSequenceManager;
+
+// Output: S25001, S25002, ...
 class SchoolController extends Controller
 {
     protected $title;
@@ -14,6 +17,14 @@ class SchoolController extends Controller
     public function __construct()
     {
         $this->title ="Sekolah";
+    }
+    protected function generateSchoolNumber(): string
+    {
+        $year = now()->year;
+        $yearSuffix = substr($year, -2); // "25"
+        $contextKey = "sekolah-{$year}";
+
+        return NumberSequenceManager::next("S{$yearSuffix}", $contextKey);
     }
 
     public function index()
@@ -48,6 +59,8 @@ class SchoolController extends Controller
             'address' => 'nullable|string',
             'email' => 'nullable|email',
         ]);
+        $code = $this->generateSchoolNumber();
+        $request->merge(['code' => $code]);
 
         School::create($request->all());
         return redirect()->route('schools.index')->with('success', 'School created.');

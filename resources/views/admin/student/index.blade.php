@@ -22,6 +22,9 @@
                         <table class="table-auto w-full min-w-full divide-y divide-gray-200">
                             <thead class="bg-gray-100">
                                 <tr>
+                                      <th
+                                        class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
+                                        Student Number</th>
                                     <th
                                         class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
                                         Name</th>
@@ -40,6 +43,8 @@
                             <tbody class="bg-white divide-y divide-gray-200">
                                 @forelse ($students as $student)
                                     <tr class="hover:bg-gray-50 transition">
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                                            {{ $student->student_number }}</td>
                                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                                             {{ $student->name }}</td>
                                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
