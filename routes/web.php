@@ -36,6 +36,7 @@ Route::middleware('auth')->group(function () {
 require __DIR__.'/auth.php';
 
 Route::get('/students/export-excel', [StudentController::class, 'export'])->name('students.export');
+Route::get('/schools/export-excel', [SchoolController::class, 'export'])->name('schools.export');
 
 Route::resource('schools', SchoolController::class)->middleware('auth');
 Route::resource('students', StudentController::class)->middleware('auth');

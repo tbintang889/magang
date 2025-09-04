@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\School;
 use Illuminate\Http\Request;
-
+use App\Exports\SchoolsExport;
+use App\Http\Requests\StudentExportRequest;
+use Maatwebsite\Excel\Facades\Excel;    
 class SchoolController extends Controller
 {
     protected $title;
@@ -81,5 +83,9 @@ class SchoolController extends Controller
     {
         $school->delete();
         return redirect()->route('schools.index')->with('success', 'School deleted.');
+    }
+    public function export()
+    {
+       return Excel::download(new SchoolsExport, 'Schools.xlsx');
     }
 }
