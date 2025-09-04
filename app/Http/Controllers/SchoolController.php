@@ -7,17 +7,35 @@ use Illuminate\Http\Request;
 
 class SchoolController extends Controller
 {
+    protected $title;
+
+    public function __construct()
+    {
+        $this->title ="Sekolah";
+    }
+
     public function index()
     {
         // $schools = School::all();
         $schools = School::paginate(10);
-       return view('admin.school.index', compact('schools'));
+        $title = $this->title;
+
+        $data = [
+            'title' => $title,
+            'schools' => $schools
+        ];
+       return view('admin.school.index', $data);
         // dd($schools);
     }
 
     public function create()
     {
-        return view('admin.school.create');
+         $title = $this->title;
+
+        $data = [
+            'title' => $title
+        ];
+        return view('admin.school.create', $data);
 
     }
 
@@ -35,12 +53,16 @@ class SchoolController extends Controller
 
     public function show(School $school)
     {
-        return view('admin.school.show', compact('school'));
+        $title = $this->title;
+
+        return view('admin.school.show', compact('school', 'title'));
     }
 
     public function edit(School $school)
     {
-        return view('admin.school.edit', compact('school'));
+        $title = $this->title;
+
+        return view('admin.school.edit', compact('school', 'title'));
     }
 
     public function update(Request $request, School $school)
