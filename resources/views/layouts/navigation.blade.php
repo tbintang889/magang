@@ -43,6 +43,9 @@
                             <x-dropdown-link :href="route('students.index')">
                                 {{ __('Siswa') }}
                             </x-dropdown-link>
+                            <x-dropdown-link :href="route('teachers.index')">
+                                {{ __('Guru') }}
+                            </x-dropdown-link>
                         </x-slot>
                     </x-dropdown>
                     <x-dropdown align="right" width="48">

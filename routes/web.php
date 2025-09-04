@@ -3,8 +3,10 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SchoolController;
 use App\Http\Controllers\StudentController;
+use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
+
 
 
 /*
@@ -43,7 +45,11 @@ Route::get('/schools/export-excel', [SchoolController::class, 'export'])->name('
 Route::resource('schools', SchoolController::class)->middleware('auth');
 Route::resource('students', StudentController::class)->middleware('auth');
 
-//export
+Route::middleware(['auth'])->group(function () {
+    Route::get('teachers/export', [TeacherController::class, 'export'])->name('teachers.export');
+    Route::resource('teachers', TeacherController::class);
+});
+
 Route::middleware(['auth'])->group(function () {
     Route::get('users/export', [UserController::class, 'export'])->name('users.export');
     Route::resource('users', UserController::class);
