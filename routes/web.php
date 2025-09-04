@@ -3,7 +3,9 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SchoolController;
 use App\Http\Controllers\StudentController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -42,3 +44,7 @@ Route::resource('schools', SchoolController::class)->middleware('auth');
 Route::resource('students', StudentController::class)->middleware('auth');
 
 //export
+Route::middleware(['auth'])->group(function () {
+    Route::get('users/export', [UserController::class, 'export'])->name('users.export');
+    Route::resource('users', UserController::class);
+});
