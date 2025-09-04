@@ -11,20 +11,38 @@ use App\Http\Requests\StudentExportRequest;
 use Maatwebsite\Excel\Facades\Excel;
 
 class StudentController extends Controller
-{
+{  
+    protected $title;
+
+    public function __construct()
+    {
+        $this->title ="Siswa";
+    }
     public function index()
     {
         // $schools = School::all();
         $students = Student::paginate(10);
-        return view('admin.student.index', compact('students'));
+        $title = $this->title;
+        $data = [
+            'students' => $students,
+            'title' => $title
+        ];
+
+        return view('admin.student.index', $data);
         // dd($schools);
     }
     //
     public function create()
     {
 
+
         $schools = School::all();
-        return view('admin.student.create', compact('schools'));
+        $title = $this->title;
+        $data = [
+            'schools' => $schools,
+            'title' => $title
+        ];
+        return view('admin.student.create', $data);
     }
 
     public function store(StoreStudentRequest $request)
@@ -36,7 +54,12 @@ class StudentController extends Controller
     //\\
     public function show(Student $student)
     {
-        return view('admin.student.show', compact('student'));
+        $title = $this->title;
+        $data = [
+            'student' => $student,
+            'title' => $title
+        ];
+        return view('admin.student.show', $data);
     }
 
     public function edit(Student $student)

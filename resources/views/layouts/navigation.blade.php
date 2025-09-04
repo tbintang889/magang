@@ -36,8 +36,8 @@
                             {{ __('Sekolah') }}
                         </x-dropdown-link>
 
-                        <x-dropdown-link :href="route('schools.create')">
-                            {{ __('Tambah Sekolah') }}
+                        <x-dropdown-link :href="route('students.index')">
+                            {{ __('Siswa') }}
                         </x-dropdown-link>
                     </x-slot>
                 </x-dropdown>
