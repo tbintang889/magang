@@ -1,11 +1,13 @@
 <?php
 
+use App\Http\Controllers\GroupController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SchoolController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
+
 
 
 
@@ -26,7 +28,7 @@ Route::get('/', function () {
 
 Route::get('/dashboard', function () {
     $user = auth()->user();
-    $schools = [];   
+    $schools = [];
     return view('dashboard', compact('user'));
     // return view('admin.school.index', compact('user', 'schools'));
 })->middleware(['auth', 'verified'])->name('dashboard');
@@ -37,7 +39,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
 
 Route::get('/students/export-excel', [StudentController::class, 'export'])->name('students.export');
 Route::get('/schools/export-excel', [SchoolController::class, 'export'])->name('schools.export');
@@ -54,3 +56,12 @@ Route::middleware(['auth'])->group(function () {
     Route::get('users/export', [UserController::class, 'export'])->name('users.export');
     Route::resource('users', UserController::class);
 });
+Route::post('groups/{group}/students', [GroupController::class, 'addStudents'])->name('groups.addStudents');
+Route::post('groups/{group}/teachers', [GroupController::class, 'addTeachers'])->name('groups.addTeachers');
+Route::get('groups/{group}/students', [GroupController::class, 'formStudents'])->name('groups.formStudents');
+Route::get('groups/{group}/teachers', [GroupController::class, 'formTeachers'])->name('groups.formTeachers');
+//storeDocument
+Route::post('groups/{group}/documents', [GroupController::class, 'storeDocument'])->name('groups.storeDocument');
+Route::delete('groups/{group}/documents/{id}', [GroupController::class, 'destroyDocument'])->name('groups.destroyDocument');
+// Route::delete('groups/{group}/documents/{id}', f);
+Route::resource('groups', GroupController::class);
